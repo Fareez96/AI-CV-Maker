@@ -14,7 +14,7 @@ export default function Header() {
             </p>
           </div>
           <div className="hidden sm:block text-right">
-            <p className="text-sm text-primary font-semibold">Target: 75%+ ATS</p>
+            <p className="text-sm text-primary font-semibold">Target: 95%+ ATS</p>
             <p className="text-xs text-muted-foreground">Powered by Gemini AI</p>
           </div>
         </div>

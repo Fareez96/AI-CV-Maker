@@ -80,7 +80,7 @@ export default function CVOptimizer() {
             AI-Powered CV Optimizer
           </h1>
           <p className="text-xl text-muted-foreground">
-            Get ATS-optimized resumes tailored to job descriptions with 75%+ ATS score
+            Get ATS-optimized resumes tailored to job descriptions with 95%+ ATS score
           </p>
         </div>
 
@@ -171,7 +171,7 @@ export default function CVOptimizer() {
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li className="flex items-start gap-2">
                     <span className="text-success mt-1">✓</span>
-                    <span>ATS-optimized CV with 75%+ score</span>
+                    <span>ATS-optimized CV with 95%+ score</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-success mt-1">✓</span>
