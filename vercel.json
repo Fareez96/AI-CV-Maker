@@ -1,0 +1,26 @@
+{
+  "buildCommand": "next build",
+  "outputDirectory": ".next",
+  "devCommand": "next dev",
+  "env": {
+    "GEMINI_API_KEY": "@gemini_api_key"
+  },
+  "crons": [
+    {
+      "path": "/api/health",
+      "schedule": "0 */4 * * *"
+    }
+  ],
+  "functions": {
+    "app/**/*": {
+      "maxDuration": 60,
+      "memory": 3008
+    }
+  },
+  "regions": ["sfo1", "iad1"],
+  "git": {
+    "deploymentEnabled": {
+      "main": true
+    }
+  }
+}
