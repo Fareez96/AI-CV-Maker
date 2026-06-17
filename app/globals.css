@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: 'Geist', 'Geist Fallback';
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --color-background: hsl(12 6% 15%);
+  --color-foreground: hsl(0 0% 98%);
+  --color-card: hsl(12 6% 22%);
+  --color-card-foreground: hsl(0 0% 98%);
+  --color-primary: hsl(217 100% 50%);
+  --color-primary-foreground: hsl(0 0% 10%);
+  --color-secondary: hsl(280 85% 60%);
+  --color-accent: hsl(0 100% 50%);
+  --color-muted: hsl(12 6% 35%);
+  --color-muted-foreground: hsl(0 0% 70%);
+  --radius: 0.75rem;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-semibold;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply backdrop-blur-xl bg-card/30 border border-white/10 rounded-lg;
+  }
+
+  .glass-border {
+    @apply border border-white/20;
+  }
+
+  .btn-primary {
+    @apply px-4 py-2 rounded-lg font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors;
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2 rounded-lg font-semibold bg-secondary text-white hover:bg-secondary/90 transition-colors;
+  }
+
+  .btn-ghost {
+    @apply px-4 py-2 rounded-lg font-semibold hover:bg-card transition-colors;
+  }
+
+  .input-field {
+    @apply bg-card/50 border border-white/10 rounded-lg px-3 py-2 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Loading animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Pulse animation */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
