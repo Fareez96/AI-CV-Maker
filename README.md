@@ -1,159 +1,230 @@
-# AI CV Maker - ATS-Optimized Resume Builder
+# AI CV Maker - Free ATS-Optimized Resume Generator
 
-An intelligent CV optimization platform powered by Google Gemini AI. Upload your CV, provide a job description, and get AI-powered optimizations with ATS (Applicant Tracking System) scoring.
+Transform your CV with AI-powered optimization tailored to specific job descriptions. Get ATS scores of 75%+ in seconds with zero setup required.
 
-## 🎯 Features
+## ✨ Features
 
-- **AI-Powered CV Optimization**: Uses Google Gemini to analyze job descriptions and tailor your CV
-- **ATS Scoring**: Get a detailed ATS compatibility score (0-100%) with actionable feedback
-- **Keyword Extraction**: Automatically identifies key skills and requirements from job postings
-- **PDF Generation**: Download optimized CVs as professional PDFs
-- **Secure Authentication**: Email/password authentication with Better Auth
-- **Real-time Optimization**: Instant feedback on CV improvements and keyword matching
-- **Comprehensive Error Handling**: Automatic retry with exponential backoff, graceful error recovery
+- **No Login Required** - Completely free, no registration or accounts
+- **AI-Powered Optimization** - Uses Google Gemini to analyze job descriptions and tailor your CV
+- **ATS Scoring** - Get real-time ATS compatibility scores (target: 75%+)
+- **Multiple Templates** - Choose from Chronological, Functional, Hybrid, or Minimal ATS-friendly formats
+- **Keyword Matching** - Automatically identifies and matches job requirements
+- **Instant Download** - Download or copy optimized CV instantly
+- **Privacy First** - Your data is never stored or logged
+
+## 🎯 Target ATS Score: 75%+
+
+Our optimizer targets an ATS score of **75% or higher**, which means:
+- Your CV passes most ATS parsing systems
+- Keywords match job requirements effectively
+- Formatting is ATS-compliant
+- Better chances of reaching human recruiters
 
 ## 🛠️ Tech Stack
 
 - **Frontend**: Next.js 16, React 19, TypeScript, Tailwind CSS v4
-- **Backend**: Next.js Server Actions, Better Auth
-- **Database**: Neon PostgreSQL with Drizzle ORM
+- **Backend**: Next.js Server Actions
 - **AI**: Google Gemini 1.5 Flash API
-- **File Processing**: PDF parsing, DOCX extraction, text parsing
-- **Error Handling**: Global error boundaries, auto-retry mechanisms, fallback UIs
+- **Deployment**: Vercel (recommended)
 
-## 📋 Prerequisites
+## 🚀 Quick Start
 
-- Node.js 18+ and npm/yarn/pnpm
-- Neon PostgreSQL database (connected via v0 integration)
-- Google Gemini API key
-- Better Auth Secret (≥32 chars)
+### 1. Get a Gemini API Key
+- Go to [Google AI Studio](https://aistudio.google.com/app/apikey)
+- Create a new free API key
 
-## 🚀 Setup Instructions
-
-### 1. Environment Variables
-
-Add these to your project settings (Vars section):
-
-```
-DATABASE_URL=postgresql://your-neon-connection-string
-BETTER_AUTH_SECRET=your-secret-key-min-32-chars
-GEMINI_API_KEY=your-google-gemini-api-key
-```
-
-**To generate BETTER_AUTH_SECRET**, run:
+### 2. Set Environment Variable
 ```bash
-openssl rand -base64 32
+GEMINI_API_KEY=your_api_key_here
 ```
 
-### 2. Database Setup
-
-The database tables are already created via Neon MCP:
-- `user` - Better Auth user table
-- `session` - Session management
-- `account` - OAuth/auth account data
-- `verification` - Email verification tokens
-- `cvs` - User CV storage
-- `cv_optimizations` - Optimization history and results
-
-### 3. Installation
-
+### 3. Install and Run
 ```bash
 npm install
-```
-
-### 4. Development
-
-```bash
 npm run dev
 ```
 
-Visit `http://localhost:3000` to see the app in action.
+Visit `http://localhost:3000`
 
-## 📝 Usage
+## 📝 How to Use
 
-1. **Sign Up**: Create an account with email and password
-2. **Upload CV**: Choose a PDF, DOCX, or TXT file containing your resume
-3. **Paste Job Description**: Provide the target job posting
-4. **Get Optimization**: Click "Optimize CV" to get:
-   - AI-tailored CV content with relevant metrics
-   - ATS compatibility score (0-100%)
-   - List of key skills/requirements
-   - Specific feedback on optimization
-5. **Download**: Export your optimized CV as a PDF
+1. **Upload Your CV** - Paste your current resume (TXT format recommended)
+2. **Select Template** - Choose between 4 ATS-friendly CV formats
+3. **Paste Job Description** - Copy the job posting you're applying for
+4. **Click Optimize** - AI analyzes and optimizes instantly
+5. **Review Results**:
+   - ATS Score (0-100%)
+   - Matched Keywords
+   - Improvement Suggestions
+6. **Download or Copy** - Get your optimized CV ready to submit
 
-## 🔄 Optimization Process
+## 🎨 CV Templates (All ATS-Friendly)
 
-The app uses Gemini API with 3-step optimization:
+### Chronological
+**Best for**: Steady career progression
+- Lists jobs in reverse chronological order
+- Shows career progression clearly
+- Most traditional ATS format
 
-1. **Job Analysis**: Extracts key technical skills and requirements
-2. **CV Tailoring**: Rewrites CV to match job requirements with quantified metrics
-3. **ATS Scoring**: Evaluates keyword match, formatting, and relevance
+### Functional
+**Best for**: Career changers, freelancers
+- Focuses on skills and achievements
+- Hides employment gaps
+- Reorganizes experience by competencies
 
-All API calls include automatic retry with exponential backoff (3 attempts) for reliability.
+### Hybrid
+**Best for**: Most job seekers
+- Combines skills and experience
+- Shows both capabilities and progression
+- Most flexible format
 
-## 🛡️ Error Handling & Resilience
+### Minimal
+**Best for**: Conservative ATS systems
+- Extremely simple formatting
+- Pure text, no fancy styling
+- Maximum compatibility with old ATS
 
-- **Global Error Boundary**: Catches React rendering errors
-- **Auto-Retry System**: Failed API calls retry with exponential backoff (1s, 2s, 4s)
-- **Fallback UIs**: Clean error screens instead of white screens
-- **Graceful Degradation**: Missing data or API failures show user-friendly messages
-- **Loading States**: Real-time progress feedback during optimization
-- **Safe Async Operations**: Wrapped async functions with proper error handling
+## 🤖 AI Optimization Process
 
-## 📦 Building for Production
+The Gemini AI performs a 3-step optimization:
+
+1. **Job Analysis**
+   - Extracts key skills, tools, and responsibilities
+   - Identifies seniority level and requirements
+   - Highlights must-have qualifications
+
+2. **CV Tailoring**
+   - Rewrites sections to match job requirements
+   - Adds quantifiable metrics to achievements
+   - Reorganizes content by relevance
+   - Uses strong action verbs
+   - Keeps content truthful
+
+3. **ATS Scoring**
+   - Evaluates keyword match rate
+   - Checks formatting compliance
+   - Scores overall compatibility (0-100%)
+   - Provides specific improvement suggestions
+
+## 📊 Understanding Your ATS Score
+
+- **90-100%** ✓ Excellent - Highly optimized for this job
+- **75-89%** ✓ Great - Should pass most ATS systems
+- **50-74%** ⚠️ Good - Could use improvements
+- **Below 50%** ❌ Needs work - Major revisions suggested
+
+## 💡 Tips for Best Results
+
+1. **Be Specific** - Use exact job title and include full job description
+2. **Use Keywords** - Original CV should include some relevant terms
+3. **Numbers Matter** - Add metrics to achievements (e.g., "increased by 25%")
+4. **One Job at a Time** - Optimize separately for each position
+5. **Review Suggestions** - Check improvements before submitting
+
+## 🔒 Privacy & Data
+
+- ✓ No login or accounts required
+- ✓ No data stored on servers
+- ✓ No tracking or analytics
+- ✓ Each session is fresh
+- ✓ Your information stays with you
+
+## 📱 Responsive Design
+
+Works perfectly on:
+- Desktop (1920px and up)
+- Tablet (768px and up)
+- Mobile (320px and up)
+
+## 🚢 Deployment
+
+### Deploy to Vercel (Recommended)
+
+```bash
+# Push to GitHub
+git push origin main
+
+# Deploy via Vercel CLI or dashboard
+vercel
+```
+
+### Environment Variable
+Set in Vercel dashboard:
+```
+GEMINI_API_KEY=your_api_key
+```
+
+### Deploy to Other Platforms
 
 ```bash
 npm run build
 npm start
 ```
 
-## 🗂️ Project Structure
+## 📦 Project Structure
 
 ```
 app/
-  api/auth/[...all]/     - Better Auth handler
-  actions/               - Server actions for CV management & Gemini AI
-  layout.tsx            - Root layout with fonts and metadata
-  globals.css           - Tailwind v4 styling with design tokens
-  page.tsx              - Protected dashboard page
-  error.tsx             - Global error handler
-  sign-in/              - Sign-in page
-  sign-up/              - Sign-up page
+  ├── page.tsx              # Main landing page
+  ├── layout.tsx            # Root layout
+  ├── globals.css           # Tailwind styles
+  └── actions/
+      └── optimize.ts       # Gemini AI optimization
 
 components/
-  dashboard.tsx         - Main optimization interface
-  cv-upload-form.tsx    - File upload with parsing
-  cv-list.tsx           - Stored CVs list
-  optimization-result.tsx - Results display
-  pdf-download.tsx      - PDF generation & download
-  auth-form.tsx         - Sign-in/up form
-  error-boundary.tsx    - React error boundary
+  ├── cv-optimizer.tsx      # Main optimizer interface
+  ├── file-upload.tsx       # CV upload form
+  ├── result-display.tsx    # Results & download
+  ├── header.tsx            # Top navigation
+  └── footer.tsx            # Footer
 
 lib/
-  auth.ts               - Better Auth server config
-  auth-client.ts        - Better Auth React client
-  db/
-    index.ts            - Drizzle ORM setup
-    schema.ts           - Database schema
-  error-utils.ts        - Retry logic & error handling
+  └── cv-templates.ts       # 4 ATS-friendly templates
 ```
 
-## 🔐 Security
+## 🛠️ Development
 
-- Session-based authentication with Better Auth
-- Per-user data scoping (all queries filtered by userId)
-- No foreign key constraints on app tables (simpler schema iteration)
-- Environment variables properly isolated
-- CORS-safe cross-site iframe cookies in dev mode
+```bash
+# Install dependencies
+npm install
+
+# Start dev server
+npm run dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
+```
 
 ## 📄 License
 
-MIT
+MIT - Free to use and modify
 
-## 🤝 Support
+## 🎯 Roadmap
 
-For issues or feature requests, check the application error logs or contact support.
+- [ ] PDF upload support (currently text/paste only)
+- [ ] DOCX upload support
+- [ ] Multiple language support
+- [ ] Save optimization history
+- [ ] Compare multiple versions
+- [ ] Custom template builder
+
+## 🤝 Contributing
+
+Contributions welcome! Please feel free to submit issues or pull requests.
+
+## 📞 Support
+
+For issues:
+1. Check if CV text is valid
+2. Verify Gemini API key is correct
+3. Ensure job description is complete
+4. Try a different template format
 
 ---
 
-Built with ❤️ using Next.js, Gemini AI, and Neon
+**Made with ❤️ using Next.js 16 and Google Gemini AI**
+
+Transform your resume. Land your dream job. 🚀
