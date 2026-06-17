@@ -6,8 +6,8 @@ const geist = Geist({ subsets: ["latin"] });
 const geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "AI CV Maker - Free ATS-Optimized Resume Generator",
-  description: "Transform your CV with AI. Get ATS-optimized resumes tailored to job descriptions with 75%+ ATS score in seconds.",
+  title: "AI CV Maker - 95% ATS Score Generator",
+  description: "Free AI-powered CV optimization. Get 95%+ ATS score instantly with custom optimization for any job description.",
 };
 
 export default function RootLayout({
