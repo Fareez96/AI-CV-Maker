@@ -1,16 +1,13 @@
-import { auth } from "@/lib/auth";
-import { redirect } from "next/navigation";
-import { headers } from "next/headers";
-import Dashboard from "@/components/dashboard";
 import { ErrorBoundary } from "@/components/error-boundary";
+import { Suspense } from "react";
+import DashboardContent from "@/components/dashboard-content";
 
-export default async function DashboardPage() {
-  const session = await auth.api.getSession({ headers: await headers() });
-  if (!session?.user) redirect("/sign-in");
-
+export default function DashboardPage() {
   return (
     <ErrorBoundary>
-      <Dashboard user={session.user} />
+      <Suspense fallback={<div className="min-h-screen bg-background flex items-center justify-center">Loading...</div>}>
+        <DashboardContent />
+      </Suspense>
     </ErrorBoundary>
   );
 }
