@@ -2,7 +2,6 @@
 
 import { useCallback, useState, useEffect } from "react";
 import {
-  uploadCV,
   getCVs,
   optimizeCV_Action,
   getOptimizations,
@@ -62,12 +61,9 @@ export default function Dashboard({ user }: { user: { name?: string; email: stri
   };
 
   const handleCVUpload = useCallback(
-    async (title: string, content: string, fileType: string) => {
+    async (id: string, title: string, content: string) => {
       try {
         setError(null);
-        await retryWithBackoff(() =>
-          uploadCV(title, content, fileType)
-        );
         await loadCVs();
       } catch (err) {
         setError(handleError(err));

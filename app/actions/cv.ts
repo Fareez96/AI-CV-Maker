@@ -93,11 +93,17 @@ Provide the optimized CV text only, without any additional commentary.`
   });
 }
 
-async function scoreATS(optimizedCV: string, jobRequirements: string): Promise<{ score: number; feedback: string }> {
-  return retryWithBackoff(async () => {
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-    const result = await model.generateContent(
-      `Score this CV's ATS (Applicant Tracking System) compatibility on a scale of 0-100. Consider:
+async function scoreATS(
+  optimizedCV: string,
+  jobRequirements: string
+): Promise<{ score: number; feedback: string }> {
+  let lastError: Error | undefined;
+  
+  for (let i = 0; i < 3; i++) {
+    try {
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const response = await model.generateContent(
+        `Score this CV's ATS (Applicant Tracking System) compatibility on a scale of 0-100. Consider:
 1. Presence of required keywords
 2. Proper formatting and structure
 3. Relevance to job requirements
@@ -111,17 +117,24 @@ ${optimizedCV}
 Response format ONLY:
 SCORE: [number]
 FEEDBACK: [brief feedback]`
-    );
-    
-    const text = result.response.text();
-    const scoreMatch = text.match(/SCORE:\s*(\d+)/);
-    const feedbackMatch = text.match(/FEEDBACK:\s*(.+?)(?=$|SCORE:)/s);
-    
-    return {
-      score: scoreMatch ? parseInt(scoreMatch[1], 10) : 0,
-      feedback: feedbackMatch ? feedbackMatch[1].trim() : "Unable to generate feedback",
-    };
-  });
+      );
+
+      const text = response.response.text();
+      const scoreMatch = text.match(/SCORE:\s*(\d+)/);
+      const feedbackMatch = text.match(/FEEDBACK:\s*(.+?)(?=$|SCORE:)/s);
+
+      return {
+        score: scoreMatch ? parseInt(scoreMatch[1], 10) : 0,
+        feedback: feedbackMatch ? feedbackMatch[1].trim() : "Unable to generate feedback",
+      };
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+      if (i === 2) throw lastError;
+      await new Promise((resolve) => setTimeout(resolve, Math.pow(2, i) * 1000));
+    }
+  }
+
+  throw lastError || new Error("Failed to score ATS");
 }
 
 export async function optimizeCV_Action(

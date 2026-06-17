@@ -22,10 +22,15 @@ export default function PDFDownload({
       setDownloading(true);
 
       // Call server action to generate PDF
-      const pdfBuffer = await generatePDF(content, fileName);
+      const pdfData = await generatePDF(content, fileName);
+      
+      // Convert to Uint8Array for Blob
+      const pdfArray = new Uint8Array(
+        pdfData instanceof Buffer ? pdfData : Buffer.from(pdfData)
+      );
       
       // Create blob and download
-      const blob = new Blob([pdfBuffer], { type: "application/pdf" });
+      const blob = new Blob([pdfArray], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;

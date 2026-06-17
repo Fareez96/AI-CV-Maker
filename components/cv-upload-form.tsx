@@ -2,29 +2,16 @@
 
 import { useState, useRef } from "react";
 import { Upload, FileText, Loader2 } from "lucide-react";
-import * as pdfParse from "pdf-parse";
-import * as mammoth from "mammoth";
+import { processAndUploadFile } from "@/app/actions/file";
 
 interface CVUploadFormProps {
-  onUpload: (title: string, content: string, fileType: string) => Promise<void>;
+  onUpload: (id: string, title: string, content: string) => Promise<void>;
 }
 
 export default function CVUploadForm({ onUpload }: CVUploadFormProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const extractTextFromPDF = async (file: File): Promise<string> => {
-    const arrayBuffer = await file.arrayBuffer();
-    const data = await pdfParse(Buffer.from(arrayBuffer));
-    return data.text;
-  };
-
-  const extractTextFromDocx = async (file: File): Promise<string> => {
-    const arrayBuffer = await file.arrayBuffer();
-    const result = await mammoth.extractRawText({ arrayBuffer });
-    return result.value;
-  };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -34,37 +21,23 @@ export default function CVUploadForm({ onUpload }: CVUploadFormProps) {
     setLoading(true);
 
     try {
-      let content = "";
-      const fileType = file.type;
+      const arrayBuffer = await file.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
 
-      if (file.type === "application/pdf") {
-        content = await extractTextFromPDF(file);
-      } else if (
-        file.type ===
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
-        file.type === "application/msword"
-      ) {
-        content = await extractTextFromDocx(file);
-      } else if (file.type === "text/plain") {
-        content = await file.text();
-      } else {
-        throw new Error(
-          "Unsupported file type. Please use PDF, DOCX, or TXT."
-        );
-      }
+      const { id, title, content } = await processAndUploadFile(
+        file.name,
+        buffer,
+        file.type
+      );
 
-      if (!content.trim()) {
-        throw new Error("No text content found in the file");
-      }
-
-      const title = file.name.replace(/\.[^/.]+$/, "");
-      await onUpload(title, content, fileType);
+      await onUpload(id, title, content);
 
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Failed to process file";
+      const message =
+        err instanceof Error ? err.message : "Failed to process file";
       setError(message);
       console.error("[v0] File processing error:", err);
     } finally {

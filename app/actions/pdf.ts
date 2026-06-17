@@ -1,8 +1,5 @@
 "use server";
 
-import { getServerSession } from "better-auth/next-js";
-import { auth } from "@/lib/auth";
-
 export async function generatePDF(content: string, fileName: string): Promise<Buffer> {
   try {
     const PDFDocument = require("pdfkit");
