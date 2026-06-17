@@ -1,13 +1,13 @@
-import { ErrorBoundary } from "@/components/error-boundary";
-import { Suspense } from "react";
-import DashboardContent from "@/components/dashboard-content";
+import CVOptimizer from "@/components/cv-optimizer";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 
-export default function DashboardPage() {
+export default function Home() {
   return (
-    <ErrorBoundary>
-      <Suspense fallback={<div className="min-h-screen bg-background flex items-center justify-center">Loading...</div>}>
-        <DashboardContent />
-      </Suspense>
-    </ErrorBoundary>
+    <main className="min-h-screen bg-gradient-to-b from-background via-background to-card/20">
+      <Header />
+      <CVOptimizer />
+      <Footer />
+    </main>
   );
 }

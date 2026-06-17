@@ -3,90 +3,66 @@
 @theme inline {
   --font-sans: 'Geist', 'Geist Fallback';
   --font-mono: 'Geist Mono', 'Geist Mono Fallback';
-  --color-background: hsl(12 6% 15%);
+  --color-background: hsl(10 14% 9%);
   --color-foreground: hsl(0 0% 98%);
-  --color-card: hsl(12 6% 22%);
+  --color-card: hsl(10 13% 15%);
   --color-card-foreground: hsl(0 0% 98%);
-  --color-primary: hsl(217 100% 50%);
+  --color-primary: hsl(210 100% 50%);
   --color-primary-foreground: hsl(0 0% 10%);
-  --color-secondary: hsl(280 85% 60%);
-  --color-accent: hsl(0 100% 50%);
-  --color-muted: hsl(12 6% 35%);
+  --color-accent: hsl(280 100% 60%);
+  --color-success: hsl(142 71% 45%);
+  --color-muted: hsl(10 8% 40%);
   --color-muted-foreground: hsl(0 0% 70%);
-  --radius: 0.75rem;
+  --radius: 0.5rem;
 }
 
 @layer base {
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-semibold;
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
   }
 }
 
 @layer components {
   .glass {
-    @apply backdrop-blur-xl bg-card/30 border border-white/10 rounded-lg;
-  }
-
-  .glass-border {
-    @apply border border-white/20;
+    @apply backdrop-blur-xl bg-card/40 border border-white/10 rounded-2xl;
   }
 
   .btn-primary {
-    @apply px-4 py-2 rounded-lg font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors;
+    @apply px-6 py-3 rounded-lg font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
   .btn-secondary {
-    @apply px-4 py-2 rounded-lg font-semibold bg-secondary text-white hover:bg-secondary/90 transition-colors;
-  }
-
-  .btn-ghost {
-    @apply px-4 py-2 rounded-lg font-semibold hover:bg-card transition-colors;
+    @apply px-6 py-3 rounded-lg font-semibold border border-primary/30 text-primary hover:bg-primary/10 transition-all duration-200;
   }
 
   .input-field {
-    @apply bg-card/50 border border-white/10 rounded-lg px-3 py-2 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all;
+    @apply w-full bg-card/50 border border-white/10 rounded-lg px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all;
+  }
+
+  .container-lg {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 }
 
-/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
 }
 
-/* Loading animation */
-@keyframes spin {
+@keyframes fade-in {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    transform: translateY(10px);
   }
   to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-spin {
-  animation: spin 1s linear infinite;
-}
-
-/* Pulse animation */
-@keyframes pulse {
-  0%,
-  100% {
     opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
+    transform: translateY(0);
   }
 }
 
-.animate-pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
 }
